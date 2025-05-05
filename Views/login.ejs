@@ -1,0 +1,11 @@
+<%-include('./Partials/head.ejs') %>
+
+<h1>Log in!</h1>
+
+<form action="/login" method="POST">
+    <input type="email" name="email" placeholder="E-mail">
+    <input type="password" name="password" placeholder="Password">
+    <input type="submit" name="login" id="Login" value="Log In">
+</form>
+
+<%-include('./Partials/foot.ejs') %>

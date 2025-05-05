@@ -1,0 +1,13 @@
+<%-include('./Partials/head.ejs') %>
+
+<h1>Register!</h1>
+
+<form action="/register" method="POST">
+    <input type="text" name="name" placeholder="Name">
+    <input type="email" name="email" placeholder="E-mail">
+    <input type="password" name="password" placeholder="Password">
+    <input type="password" name="confirmPassword" placeholder="Confirm password">
+    <input type="submit" name="registrer" id="register" value="Register">
+</form>
+
+<%-include('./Partials/foot.ejs') %>
