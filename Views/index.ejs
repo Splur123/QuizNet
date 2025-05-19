@@ -2,12 +2,20 @@
 
 <h1>Welcome to the Ponderhub!</h1>
 
-<a class="button" href="/create">Create Quiz</a>
+<a class="button" href="/quizzes">Browse Quizzes</a>
 <br>
 
-<div class="linkText">
-<a class="link" href="/login">Log in?</a>
-<a class="link" href="/register">Register?</a>
-</div>
+<% if (locals.user) { %>
+    <a class="button" href="/create">Create Quiz</a>
+    <br>
+    <div class="linkText"></div>
+    <a class="link" href="/logout">Log Out?</a>
+    </div>
+<% } else { %>
+    <div class="linkText">
+        <a class="link" href="/login">Log in?</a>
+        <a class="link" href="/register">Register?</a>
+    </div>
+<% } %>
 
 <%-include('./Partials/foot.ejs') %>

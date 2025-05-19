@@ -2,12 +2,20 @@
 
 <h1>Register!</h1>
 
+<% if (typeof error !== 'undefined') { %>
+  <div class="error-message"><%= error %></div>
+<% } %>
+
 <form action="/register" method="POST">
-    <input type="text" name="name" placeholder="Name">
-    <input type="email" name="email" placeholder="E-mail">
-    <input type="password" name="password" placeholder="Password">
-    <input type="password" name="confirmPassword" placeholder="Confirm password">
-    <input type="submit" name="registrer" id="register" value="Register">
+    <input type="text" name="name" placeholder="Name" required>
+    <input type="email" name="email" placeholder="E-mail" required>
+    <input type="password" name="password" placeholder="Password" required>
+    <input type="password" name="confirmPassword" placeholder="Confirm password" required>
+    <input type="submit" class="button" value="Register">
 </form>
+
+<div class="linkText">
+    <a class="link" href="/login">Already have an account? Log in here</a>
+</div>
 
 <%-include('./Partials/foot.ejs') %>

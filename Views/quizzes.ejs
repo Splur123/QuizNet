@@ -1,0 +1,23 @@
+<%-include('./Partials/head.ejs') %>
+
+<h1>Welcome to the quizzes!</h1>
+
+<ul class="quiz-list">
+    <% if (quizzes.length === 0) { %>
+        <p>No quizzes available.</p>
+    <% } %>
+    <% quizzes.forEach(quiz => { %>
+        <li>
+            <a href="/game/<%= quiz._id %>"><%= quiz.name %></a>
+            <% if (quiz.averageScore !== null) { %>
+                - Average Score: <%= quiz.averageScore.toFixed(2) %>%
+            <% } else { %>
+                - No scores yet
+            <% } %>
+        </li>
+    <% }) %>
+</ul>
+
+<a class="button" href="/">Back</a>
+
+<%-include('./Partials/foot.ejs') %>

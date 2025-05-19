@@ -1,0 +1,51 @@
+<%-include('./Partials/head.ejs') %>
+
+<h1>Quiz: <%= quiz.name %></h1>
+
+<form action="/submit/<%= quiz._id %>" method="POST">
+    <% quiz.questions.forEach((question, index) => { %>
+        <div class="question-item">
+            <h3>Question <%= index + 1 %>: <%= question.text %></h3>
+
+            <% if (question.type === 'free') { %>
+                <label for="answer-<%= index %>">Your Answer:</label>
+                <input type="text" id="answer-<%= index %>" name="answers[<%= index %>]" required>
+            <% } else if (question.type === 'truefalse') { %>
+                <label>
+                    <input type="radio" name="answers[<%= index %>]" value="true" required> True
+                </label>
+                <label>
+                    <input type="radio" name="answers[<%= index %>]" value="false" required> False
+                </label>
+            <% } else if (question.type === 'multiplechoice') { %>
+                <label for="answer-<%= index %>">Your Answer:</label>
+                <input type="text" id="answer-<%= index %>" name="answers[<%= index %>]" required>
+            <% } %>
+        </div>
+    <% }) %>
+    <button type="submit">Submit</button>
+</form>
+
+<% if (quiz.scores && quiz.scores.length > 0) { %>
+    <h2>Leaderboard</h2>
+    <ul>
+        <% 
+        const userScores = new Map();
+        quiz.scores.forEach(score => {
+            if (!userScores.has(score.user._id)) {
+                userScores.set(score.user._id, score); // Take the first score only
+            }
+        });
+        Array.from(userScores.values())
+            .sort((a, b) => b.score - a.score || a.createdAt - b.createdAt) // Sort by score descending, then by oldest
+            .forEach(score => { %>
+            <li><%= score.user.name %>: <%= score.score %>%</li>
+        <% }); %>
+    </ul>
+<% } else { %>
+    <p>No scores yet. Be the first to play!</p>
+<% } %>
+
+<a class="button" href="/quizzes">Back to Quizzes</a>
+
+<%-include('./Partials/foot.ejs') %>

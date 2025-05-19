@@ -1,0 +1,30 @@
+<%-include('./Partials/head.ejs') %>
+
+<h1>Quiz Results: <%= quiz.name %></h1>
+
+<% quiz.questions.forEach((question, index) => { %>
+    <div>
+        <h2>Question <%= index + 1 %>:</h2>
+        <p><%= question.text %></p>
+
+        <h3>Result:</h3>
+        <p><%= (userAnswers[index] && userAnswers[index].toLowerCase() === question.answer.toLowerCase()) ? 'Correct!' : 'Incorrect' %></p>
+
+        <h3>Your Answer:</h3>
+        <p><%= userAnswers[index] || 'No answer provided' %></p>
+
+        <% if (!userAnswers[index] || userAnswers[index].toLowerCase() !== question.answer.toLowerCase()) { %>
+            <h3>Correct Answer:</h3>
+            <p><%= question.answer %></p>
+        <% } %>
+    </div>
+<% }) %>
+
+<div>
+    <h2>Your Score:</h2>
+    <p><%= score %>%</p>
+</div>
+
+<a class="button" href="/quizzes">Back to Quizzes</a>
+
+<%-include('./Partials/foot.ejs') %>
