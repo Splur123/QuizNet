@@ -16,8 +16,18 @@
                 </label>
                 <label>
                     <input type="radio" name="answers[<%= index %>]" value="false" required> False
-                </label>
-            <% } else if (question.type === 'multiplechoice') { %>
+                </label>            <% } else if (question.type === 'multiplechoice' && question.choices && question.choices.length > 0) { %>
+                <div class="multiple-choice-options">
+                    <% question.choices.forEach((choice, choiceIndex) => { %>
+                        <div class="choice-item">
+                            <label>
+                                <input type="radio" name="answers[<%= index %>]" value="<%= choice %>" required>
+                                <%= choice %>
+                            </label>
+                        </div>
+                    <% }); %>
+                </div>
+            <% } else { %>
                 <label for="answer-<%= index %>">Your Answer:</label>
                 <input type="text" id="answer-<%= index %>" name="answers[<%= index %>]" required>
             <% } %>

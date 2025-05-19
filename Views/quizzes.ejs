@@ -2,21 +2,30 @@
 
 <h1>Welcome to the quizzes!</h1>
 
-<ul class="quiz-list">
+<div class="quiz-list">
     <% if (quizzes.length === 0) { %>
-        <p>No quizzes available.</p>
+        <div class="empty-state">
+            <p>No quizzes available yet.</p>
+            <p>Check back soon or create your own quiz!</p>
+        </div>
     <% } %>
     <% quizzes.forEach(quiz => { %>
-        <li>
-            <a href="/game/<%= quiz._id %>"><%= quiz.name %></a>
-            <% if (quiz.averageScore !== null) { %>
-                - Average Score: <%= quiz.averageScore.toFixed(2) %>%
-            <% } else { %>
-                - No scores yet
-            <% } %>
-        </li>
+        <div class="quiz-card">
+            <div class="quiz-card-content">
+                <h3 class="quiz-title"><%= quiz.name %></h3>
+                <div class="quiz-details">
+                    <% if (quiz.averageScore !== null) { %>
+                        <span>Avg Score: <%= quiz.averageScore.toFixed(2) %>%</span>
+                    <% } else { %>
+                        <span>No scores yet</span>
+                    <% } %>
+                    <span data-tooltip="Number of questions"><%= quiz.questions ? quiz.questions.length : 0 %> Questions</span>
+                </div>
+            </div>
+            <a href="/game/<%= quiz._id %>" class="button">Play Quiz</a>
+        </div>
     <% }) %>
-</ul>
+</div>
 
 <a class="button" href="/">Back</a>
 

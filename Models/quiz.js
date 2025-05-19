@@ -9,6 +9,7 @@ const questionSchema = new mongoose.Schema({
     text: { type: String, required: true },
     answer: { type: String, required: true },
     type: { type: String, enum: ['free', 'truefalse', 'multiplechoice'], required: true },
+    choices: { type: [String], required: false }, // Array of choices for multiple-choice questions
 });
 
 const quizSchema = new mongoose.Schema({

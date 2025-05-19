@@ -112,50 +112,50 @@ const saveQuiz = async (req, res) => {
         // Validate the quiz name
         if (!name || typeof name !== 'string' || name.trim() === '') {
             return res.status(400).send('Quiz name is required.');
-        }
-
-        // Validate questions array
+        }        // Validate questions array
         if (!questions || !Array.isArray(questions) || questions.length === 0) {
             return res.status(400).send('A quiz must have at least one question.');
         }
-
-        // Process each question to handle answer types correctly
+        
+        // Process each question to ensure it has the required fields
         questions = questions.map(question => {
             console.log('Processing question:', question);
             
-            // Handle direct answer field if present (for backward compatibility)
-            if (question.answer) {
-                return question;
-            }
-            
-            // Determine the answer based on question type
-            if (question.type === 'free' && question.freeAnswer) {
-                question.answer = question.freeAnswer;
-            } else if (question.type === 'truefalse' && question.tfAnswer) {
-                question.answer = question.tfAnswer;
-            } else if (question.type === 'multiplechoice' && question.choices && question.correctChoice !== undefined) {
-                const correctChoiceIndex = parseInt(question.correctChoice);
-                if (!isNaN(correctChoiceIndex) && question.choices[correctChoiceIndex]) {
-                    question.answer = question.choices[correctChoiceIndex];
+            // Make sure we have an answer field from one of the potential sources
+            if (!question.answer) {
+                if (question.type === 'free' && question.freeAnswer) {
+                    console.log('Found free answer:', question.freeAnswer);
+                    question.answer = question.freeAnswer;
+                } else if (question.type === 'truefalse' && question.tfAnswer) {
+                    console.log('Found true/false answer:', question.tfAnswer);
+                    question.answer = question.tfAnswer;
+                } else if (question.type === 'multiplechoice' && question.choices && question.correctChoice !== undefined) {
+                    const correctChoiceIndex = parseInt(question.correctChoice);
+                    if (!isNaN(correctChoiceIndex) && question.choices && Array.isArray(question.choices) && question.choices[correctChoiceIndex]) {
+                        console.log('Found multiple-choice answer:', question.choices[correctChoiceIndex]);
+                        question.answer = question.choices[correctChoiceIndex];
+                    } else {
+                        console.log('Invalid multiple-choice answer. correctChoice:', question.correctChoice, 'choices:', question.choices);
+                    }
+                } else {
+                    console.log('No matching answer found for question type:', question.type);
                 }
-            } else {
-                console.log("Warning: Question missing required answer fields:", question);
             }
             
-            // Remove the type-specific answer fields
-            delete question.freeAnswer;
-            delete question.tfAnswer;
-            delete question.correctChoice;
-            
-            return question;
-        });
-
-        // Final validation after processing
-        for (const question of questions) {
+            // Validate the question has all required fields
             if (!question.text || !question.answer || !question.type) {
-                return res.status(400).send('Each question must have text, an answer, and a type.');
+                console.error('Invalid question format:', JSON.stringify(question));
+                throw new Error(`Invalid question format: ${JSON.stringify(question)}`);
             }
-        }
+            
+            // Return a clean question object with only the fields we need
+            return {
+                text: question.text,
+                answer: question.answer,
+                type: question.type,
+                choices: question.type === 'multiplechoice' ? question.choices : undefined
+            };
+        });
 
         console.log('Processed questions:', questions);
 
@@ -169,7 +169,7 @@ const saveQuiz = async (req, res) => {
         res.redirect('/');
     } catch (error) {
         console.error('Error saving quiz:', error);
-        res.status(500).send('An error occurred while saving the quiz.');
+        res.status(500).send(`An error occurred while saving the quiz: ${error.message}`);
     }
 };
 

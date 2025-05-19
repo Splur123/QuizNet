@@ -2,24 +2,15 @@
 
 <h1>Welcome to the quiz editor!</h1>
 
-<form action="/quizzes" method="POST" style="margin-top: 20px; padding: 10px; border: 1px solid red;">
-  <h4>Test Form</h4>
-  <input type="text" name="name" value="Test Quiz">
-  <input type="hidden" name="questions[0][text]" value="Simple Test Question">
-  <input type="hidden" name="questions[0][type]" value="free">
-  <input type="hidden" name="questions[0][freeAnswer]" value="Test Answer">
-  <button type="submit">Test Submit</button>
-</form>
-
-<form action="/quizzes" method="POST">
+<form action="/quizzes" method="POST" id="quiz-form">
     <div>
         <label for="quiz-name">Quiz Name:</label>
-        <input type="text" id="quiz-name" name="name" value="Test Quiz" required>
+        <input type="text" id="quiz-name" name="name" required>
     </div>
     <div id="questions-container">
         <div class="question-item">
             <label for="question"><h3>Question:</h3></label>
-            <input type="text" name="questions[0][text]" value="Test Question" required>
+            <input type="text" name="questions[0][text]" required>
 
             <label for="type"><h3>Question Type:</h3></label>
             <select name="questions[0][type]" class="question-type" required>
@@ -28,26 +19,25 @@
                 <option value="multiplechoice">Multiple Choice</option>
             </select>
 
-            <div class="answer-container">
-                <label for="answer"><h3>Answer:</h3></label>
+            <div class="answer-container">                <label for="answer"><h3>Answer:</h3></label>
                 <!-- For free text -->
-                <input type="text" name="questions[0][freeAnswer]" value="Test Answer" class="answer-input" required>
+                <input type="text" name="questions[0][freeAnswer]" class="free-answer-input" required>
 
                 <!-- For true/false -->
-                <select name="questions[0][tfAnswer]" class="answer-select" style="display: none;" required>
+                <select name="questions[0][tfAnswer]" class="tf-answer-select" style="display: none;">
                     <option value="true">True</option>
                     <option value="false">False</option>
                 </select>
 
                 <div class="multiple-choice-container" style="display: none;">
                     <div class="choice-item">
-                        <input type="radio" name="questions[0][correctChoice]" value="0" required>
-                        <input type="text" name="questions[0][choices][0]" placeholder="Choice 1" required>
+                        <input type="radio" name="questions[0][correctChoice]" value="0">
+                        <input type="text" name="questions[0][choices][0]" placeholder="Choice 1">
                         <button type="button" class="remove-choice">Remove</button>
                     </div>
                     <div class="choice-item">
-                        <input type="radio" name="questions[0][correctChoice]" value="1" required>
-                        <input type="text" name="questions[0][choices][1]" placeholder="Choice 2" required>
+                        <input type="radio" name="questions[0][correctChoice]" value="1">
+                        <input type="text" name="questions[0][choices][1]" placeholder="Choice 2">
                         <button type="button" class="remove-choice">Remove</button>
                     </div>
                     <button type="button" class="add-choice" data-question-index="0">Add Choice</button>
@@ -64,12 +54,5 @@
 </form>
 
 <a class="button" href="/">Back</a>
-<a href="#" onclick="document.getElementById('manual-submit').submit(); return false;" class="button">Manual Submit</a>
-<form id="manual-submit" action="/quizzes" method="POST" style="display:none;">
-  <input type="text" name="name" value="Manual Test">
-  <input type="hidden" name="questions[0][text]" value="Manual Question">
-  <input type="hidden" name="questions[0][type]" value="free">
-  <input type="hidden" name="questions[0][answer]" value="Answer">
-</form>
 
 <%-include('./Partials/foot.ejs') %>
