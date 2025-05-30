@@ -1,30 +1,49 @@
 <%-include('./Partials/head.ejs') %>
 
-<h1>Quiz Results: <%= quiz.name %></h1>
-
-<% quiz.questions.forEach((question, index) => { %>
-    <div>
-        <h2>Question <%= index + 1 %>:</h2>
-        <p><%= question.text %></p>
-
-        <h3>Result:</h3>
-        <p><%= (userAnswers[index] && userAnswers[index].toLowerCase() === question.answer.toLowerCase()) ? 'Correct!' : 'Incorrect' %></p>
-
-        <h3>Your Answer:</h3>
-        <p><%= userAnswers[index] || 'No answer provided' %></p>
-
-        <% if (!userAnswers[index] || userAnswers[index].toLowerCase() !== question.answer.toLowerCase()) { %>
-            <h3>Correct Answer:</h3>
-            <p><%= question.answer %></p>
-        <% } %>
+<div class="results">
+    <h1>Quiz Results: <%= quiz.name %></h1>
+    
+    <div class="score-display">
+        Your Score: <%= score %>%
     </div>
-<% }) %>
-
-<div>
-    <h2>Your Score:</h2>
-    <p><%= score %>%</p>
+    
+    <div class="answer-comparison">
+        <% quiz.questions.forEach((question, index) => { %>
+            <% const isCorrect = userAnswers[index] && userAnswers[index].toLowerCase() === question.answer.toLowerCase(); %>            <div class="question-item <%= isCorrect ? 'correct-answer' : 'incorrect-answer' %>">
+                <h3>Question <%= index + 1 %>:</h3>
+                <p class="question-text"><%= question.text %></p>
+                
+                <!-- Toggle button will be inserted here by JavaScript -->
+                
+                <div class="result-status">
+                    <% if (isCorrect) { %>
+                        <span style="color: var(--success-color); font-weight: bold;">✓ Correct!</span>
+                    <% } else { %>
+                        <span style="color: var(--error-color); font-weight: bold;">✗ Incorrect</span>
+                    <% } %>
+                </div>
+                
+                <div class="answer-details">
+                    <div class="user-answer">
+                        <h4>Your Answer:</h4>
+                        <p class="answer-text"><% if(userAnswers[index]) { %><%= userAnswers[index] %><% } else { %><em>No answer provided</em><% } %></p>
+                    </div>
+                    
+                    <% if (!isCorrect) { %>
+                        <div class="correct-solution">
+                            <h4>Correct Answer:</h4>
+                            <p class="answer-text"><%= question.answer %></p>
+                        </div>
+                    <% } %>
+                </div>
+            </div>
+        <% }) %>    </div>
+    
+    <div class="button-group">
+        <a class="button" href="/quizzes">Browse More Quizzes</a>
+        <a class="button" href="/game/<%= quiz._id %>">Try Again</a>
+        <a class="button" href="/">Return Home</a>
+    </div>
 </div>
-
-<a class="button" href="/quizzes">Back to Quizzes</a>
 
 <%-include('./Partials/foot.ejs') %>

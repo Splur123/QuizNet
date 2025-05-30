@@ -159,3 +159,37 @@ html {
   height: 20px;
   fill: var(--accent-color);
 }
+
+/* Results page animations */
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.results .question-item {
+  animation: fadeInRight 0.5s ease forwards;
+  opacity: 0;
+}
+
+.results .question-item:nth-child(1) { animation-delay: 0.1s; }
+.results .question-item:nth-child(2) { animation-delay: 0.2s; }
+.results .question-item:nth-child(3) { animation-delay: 0.3s; }
+.results .question-item:nth-child(4) { animation-delay: 0.4s; }
+.results .question-item:nth-child(5) { animation-delay: 0.5s; }
+
+/* Score display shimmer effect */
+@keyframes scoreShimmer {
+  0% { background-position: -100% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.score-display {
+  background-size: 200% 100%;
+  animation: scoreShimmer 3s infinite linear;
+}

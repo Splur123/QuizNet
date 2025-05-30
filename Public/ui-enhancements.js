@@ -107,3 +107,80 @@ if (document.readyState === 'loading') {
 } else {
   addDarkModeToggle();
 }
+
+// Add results page enhancements
+document.addEventListener('DOMContentLoaded', function() {
+  // Check if we're on the results page
+  const resultsPage = document.querySelector('.results');
+  if (resultsPage) {
+    // Add click event to expand/collapse answer details
+    const questionItems = document.querySelectorAll('.question-item');
+    
+    questionItems.forEach(item => {
+      // Create a toggle button outside of the answer-details
+      const toggleButton = document.createElement('div');
+      toggleButton.className = 'toggle-details';
+      toggleButton.innerHTML = 'Show Details ▼';
+      toggleButton.style.cursor = 'pointer';
+      toggleButton.style.padding = '8px';
+      toggleButton.style.marginTop = '10px';
+      toggleButton.style.display = 'inline-block';
+      toggleButton.style.color = 'var(--accent-color)';
+      toggleButton.style.fontWeight = 'bold';
+      
+      // Insert the toggle button after the question text
+      const questionText = item.querySelector('.question-text');
+      if (questionText) {
+        questionText.parentNode.insertBefore(toggleButton, questionText.nextSibling);
+      }
+      
+      // Get the answer details element
+      const answerDetails = item.querySelector('.answer-details');
+      if (answerDetails) {
+        // Set initial state - collapsed
+        answerDetails.style.maxHeight = '0';
+        answerDetails.style.overflow = 'hidden';
+        answerDetails.style.opacity = '0';
+        answerDetails.style.transition = 'max-height 0.3s ease, opacity 0.3s ease';
+        
+        // Add click event to toggle button
+        toggleButton.addEventListener('click', () => {
+          const isExpanded = toggleButton.getAttribute('data-expanded') === 'true';
+          
+          if (isExpanded) {
+            // Collapse
+            answerDetails.style.maxHeight = '0';
+            answerDetails.style.opacity = '0';
+            toggleButton.innerHTML = 'Show Details ▼';
+            toggleButton.setAttribute('data-expanded', 'false');
+          } else {
+            // Expand
+            answerDetails.style.maxHeight = answerDetails.scrollHeight + 30 + 'px';
+            answerDetails.style.opacity = '1';
+            toggleButton.innerHTML = 'Hide Details ▲';
+            toggleButton.setAttribute('data-expanded', 'true');
+          }
+        });
+        
+        // Set the initial data-expanded attribute
+        toggleButton.setAttribute('data-expanded', 'false');
+      }
+    });
+    
+    // Initialize the score display with appropriate color based on score value
+    const scoreDisplay = document.querySelector('.score-display');
+    if (scoreDisplay) {
+      const scoreText = scoreDisplay.textContent;
+      const scoreValue = parseInt(scoreText.match(/\d+/)[0]); // Extract number from text
+      
+      // Apply color based on score
+      if (scoreValue >= 80) {
+        scoreDisplay.style.background = 'linear-gradient(135deg, var(--success-color), #2ecc71)';
+      } else if (scoreValue >= 60) {
+        scoreDisplay.style.background = 'linear-gradient(135deg, #f39c12, #e67e22)';
+      } else {
+        scoreDisplay.style.background = 'linear-gradient(135deg, #e74c3c, var(--error-color))';
+      }
+    }
+  }
+});
