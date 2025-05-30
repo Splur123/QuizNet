@@ -1,0 +1,106 @@
+/* Light mode styles for QuizNet */
+
+/* When light-mode class is added to body */
+body.light-mode {
+  --primary-bg: #f5f5f5;
+  --secondary-bg: #e0e0e0;
+  --accent-color: #ff8c00;
+  --accent-hover: #e67e00;
+  --text-color: #333333;
+  --text-secondary: #555555;
+  --link-color: #b36b00;
+  --input-bg: #ffffff;
+  --card-bg: #ffffff;
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-hover: 0 8px 16px rgba(0, 0, 0, 0.12);
+  /* Hover colors */
+  --hover-bg-light: rgba(255, 140, 0, 0.1);
+  --hover-bg-medium: rgba(255, 140, 0, 0.15);
+  --hover-bg-strong: rgba(255, 140, 0, 0.25);
+  --hover-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+  --hover-glow: 0 0 20px 5px rgba(255, 140, 0, 0.25);
+  --hover-border-color: rgba(255, 140, 0, 0.3);
+}
+
+/* Adjust backgrounds for light mode */
+body.light-mode {
+  background-image: linear-gradient(135deg, var(--primary-bg) 0%, var(--secondary-bg) 100%);
+}
+
+/* Navbar adjustments for light mode */
+body.light-mode .navbar {
+  background-color: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+/* Text adjustments for light mode */
+body.light-mode h1 {
+  text-shadow: none;
+  background: linear-gradient(90deg, var(--accent-color), #ff4500);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Card adjustments for light mode */
+body.light-mode .quiz-card,
+body.light-mode .container,
+body.light-mode form,
+body.light-mode .question-item {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+/* Button adjustments for light mode */
+body.light-mode .button {
+  color: white;
+}
+
+/* Input adjustments for light mode */
+body.light-mode input, 
+body.light-mode select {
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  background-color: white;
+  color: #333;
+}
+
+body.light-mode input::placeholder {
+  color: rgba(0, 0, 0, 0.4);
+}
+
+/* Custom select arrow for light mode */
+body.light-mode select {
+  background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+}
+
+/* Dark mode toggle in light mode */
+body.light-mode .dark-mode-toggle {
+  background: white;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+body.light-mode .dark-mode-toggle svg {
+  fill: var(--accent-color);
+}
+
+/* Choice item in light mode */
+body.light-mode .choice-item {
+  background-color: white;
+}
+
+/* Leaderboard in light mode */
+body.light-mode .leaderboard li {
+  background-color: white;
+}
+
+/* Animation adjustments for light mode */
+@keyframes cardGlowLight {
+  0% { box-shadow: 0 5px 15px rgba(255, 140, 0, 0.1); }
+  50% { box-shadow: 0 5px 20px rgba(255, 140, 0, 0.2); }
+  100% { box-shadow: 0 5px 15px rgba(255, 140, 0, 0.1); }
+}
+
+body.light-mode .quiz-card:hover {
+  animation: cardGlowLight 2s infinite;
+}

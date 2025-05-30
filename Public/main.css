@@ -1,22 +1,29 @@
 /* Global Styles */
 :root {
     /* Modern color palette */
-    --primary-bg: #1a1a2e;
-    --secondary-bg: #16213e;
-    --accent-color: #4361ee;
-    --accent-hover: #3a56d4;
+    --primary-bg: BLACK;
+    --secondary-bg: #2a2a2a;
+    --accent-color: #ffa31a;
+    --accent-hover: #ffb31c;
     --text-color: #ffffff;
     --text-secondary: #e2e2e2;
-    --link-color: #b8c1ec;
+    --link-color: #ecdab8;
     --success-color: #4ade80;
     --warning-color: #facc15;
     --error-color: #f87171;
     --shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     --shadow-hover: 0 8px 16px rgba(0, 0, 0, 0.2);
     --border-radius: 10px;
-    --input-bg: #2f3855;
-    --card-bg: #242f52;
+    --input-bg: rgb(102, 51, 0);
+    --card-bg: rgb(102, 51, 51);
     --transition: all 0.3s ease;
+    /* Hover colors */
+    --hover-bg-light: rgba(255, 163, 26, 0.1);
+    --hover-bg-medium: rgba(255, 163, 26, 0.15);
+    --hover-bg-strong: rgba(255, 163, 26, 0.25);
+    --hover-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+    --hover-glow: 0 0 20px 5px rgba(255, 163, 26, 0.4);
+    --hover-border-color: rgba(255, 163, 26, 0.3);
   }
   
   /* Base styles */
@@ -192,7 +199,7 @@
   }
   
   .button:hover::after {
-    box-shadow: 0 0 20px 5px rgba(67, 97, 238, 0.4);
+    box-shadow: var(--hover-glow);
   }
 
   button[type="submit"] {
@@ -331,6 +338,32 @@
     text-align: center;
     font-weight: bold;
     border-left: 4px solid var(--error-color);
+    transition: var(--transition);
+  }
+  
+  .error-message:hover {
+    background-color: rgba(248, 113, 113, 0.2);
+    box-shadow: var(--shadow);
+    transform: translateY(-2px);
+  }
+  
+  /* Success message */
+  .success-message {
+    background-color: rgba(74, 222, 128, 0.15);
+    color: var(--success-color);
+    padding: 12px 15px;
+    border-radius: var(--border-radius);
+    margin: 15px 0;
+    text-align: center;
+    font-weight: bold;
+    border-left: 4px solid var(--success-color);
+    transition: var(--transition);
+  }
+  
+  .success-message:hover {
+    background-color: rgba(74, 222, 128, 0.2);
+    box-shadow: var(--shadow);
+    transform: translateY(-2px);
   }
   
   input, select {
@@ -350,7 +383,7 @@
   input:focus, select:focus {
     outline: none;
     border-color: var(--accent-color);
-    box-shadow: 0 0 0 4px rgba(67, 97, 238, 0.15);
+    box-shadow: 0 0 0 4px var(--hover-bg-light);
     transform: translateY(-2px);
   }
   
@@ -450,7 +483,7 @@
   .quiz-card:hover {
     transform: translateY(-5px);
     box-shadow: var(--shadow-hover);
-    border-color: rgba(67, 97, 238, 0.3);
+    border-color: var(--hover-border-color);
   }
   
   .quiz-card:hover::before {
@@ -473,7 +506,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, rgba(67, 97, 238, 0.05) 0%, rgba(58, 86, 212, 0) 100%);
+    background: linear-gradient(135deg, var(--hover-bg-light) 0%, transparent 100%);
     z-index: -1;
     opacity: 0;
     transition: var(--transition);
@@ -570,10 +603,10 @@
 }
 
 .choice-item:hover {
-  background-color: rgba(67, 97, 238, 0.1);
+  background-color: var(--hover-bg-light);
   border-color: var(--accent-color);
   transform: translateX(5px);
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+  box-shadow: var(--hover-shadow);
 }
 
 .choice-item::before {
@@ -618,6 +651,13 @@
   margin-bottom: 25px;
   box-shadow: var(--shadow);
   border-left: 4px solid var(--accent-color);
+  transition: var(--transition);
+}
+
+.question-item:hover {
+  box-shadow: var(--shadow-hover);
+  border-left-width: 6px;
+  background-image: linear-gradient(135deg, var(--card-bg) 0%, var(--hover-bg-light) 100%);
 }
 
 .question-item h3 {
@@ -654,6 +694,15 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  transition: var(--transition);
+  border: 1px solid transparent;
+}
+
+.leaderboard li:hover {
+  transform: translateX(5px);
+  background-color: var(--hover-bg-light);
+  border-color: var(--hover-border-color);
+  box-shadow: var(--hover-shadow);
 }
 
 .results {
@@ -731,6 +780,7 @@
 
 .remove-question:hover {
   background-color: rgba(248, 113, 113, 0.3) !important;
+  box-shadow: var(--hover-shadow);
 }
 
 .remove-choice {
@@ -742,16 +792,17 @@
 
 .remove-choice:hover {
   background-color: rgba(248, 113, 113, 0.3) !important;
+  box-shadow: var(--hover-shadow);
 }
 
 .add-choice {
-  background-color: rgba(67, 97, 238, 0.2) !important;
+  background-color: var(--hover-bg-light) !important;
   color: var(--accent-color) !important;
   margin-top: 10px;
 }
 
 .add-choice:hover {
-  background-color: rgba(67, 97, 238, 0.3) !important;
+  background-color: var(--hover-bg-medium) !important;
 }
 
 #add-question {
