@@ -9,7 +9,7 @@ body.light-mode {
   --text-color: #333333;
   --text-secondary: #555555;
   --link-color: #b36b00;
-  --input-bg: #ffffff;
+  --input-bg: #f8f8f8;  /* Changed from white to a subtle light gray for better contrast */
   --card-bg: #ffffff;
   --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   --shadow-hover: 0 8px 16px rgba(0, 0, 0, 0.12);
@@ -92,6 +92,53 @@ body.light-mode .choice-item {
 /* Leaderboard in light mode */
 body.light-mode .leaderboard li {
   background-color: white;
+}
+
+/* Results page styling for light mode */
+body.light-mode .results .answer-details {
+  background-color: transparent;
+}
+
+body.light-mode .results .user-answer,
+body.light-mode .results .correct-solution {
+  background-color: var(--input-bg);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+body.light-mode .results .correct-answer {
+  background-color: rgba(74, 222, 128, 0.05);
+  border-left: 4px solid var(--success-color);
+}
+
+body.light-mode .results .incorrect-answer {
+  background-color: rgba(248, 113, 113, 0.05);
+  border-left: 4px solid var(--error-color);
+}
+
+body.light-mode .results .correct-answer .user-answer {
+  border-left: 4px solid var(--success-color);
+  background: linear-gradient(90deg, rgba(74, 222, 128, 0.1), rgba(74, 222, 128, 0.02));
+}
+
+body.light-mode .results .incorrect-answer .user-answer {
+  border-left: 4px solid var(--error-color);
+  background: linear-gradient(90deg, rgba(248, 113, 113, 0.1), rgba(248, 113, 113, 0.02));
+}
+
+body.light-mode .results .correct-solution {
+  border-left: 4px solid var(--success-color);
+  background: linear-gradient(90deg, rgba(74, 222, 128, 0.1), rgba(74, 222, 128, 0.02));
+}
+
+body.light-mode .results .result-status {
+  background-color: #f0f0f0;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+/* Toggle details button styling for light mode */
+body.light-mode .toggle-details {
+  background-color: rgba(255, 140, 0, 0.1);
+  border-radius: 5px;
 }
 
 /* Animation adjustments for light mode */

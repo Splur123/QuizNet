@@ -783,21 +783,20 @@
   font-size: 1.1rem;
   margin-bottom: 15px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  padding-bottom: 10px;
+  padding-bottom: 12px;
   color: var(--text-color);
   font-weight: 500;
+  line-height: 1.5;
 }
 
 .results .answer-details {
-  padding: 10px;
-  background-color: var(--card-bg);
-  border-radius: var(--border-radius);
+  padding: 15px 5px;
+  background-color: transparent;
   margin-top: 10px;
   transition: all 0.3s ease;
   max-height: 1000px; /* Start expanded */
   opacity: 1;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 /* Interactive results styling for collapsed state */
@@ -821,12 +820,13 @@
 
 .results .user-answer,
 .results .correct-solution {
-  margin-bottom: 12px;
-  padding: 12px 15px;
+  margin-bottom: 16px;
+  padding: 14px 18px;
   border-radius: var(--border-radius);
   background-color: var(--input-bg);
   box-shadow: var(--shadow);
   transition: var(--transition);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .results .user-answer:hover,
@@ -837,24 +837,39 @@
 
 .results h4 {
   color: var(--accent-color);
-  margin-bottom: 8px;
-  font-size: 1rem;
+  margin-bottom: 10px;
+  font-size: 1.05rem;
   font-weight: 600;
+  letter-spacing: 0.5px;
+  position: relative;
+  padding-left: 12px;
+}
+
+.results h4::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 16px;
+  width: 4px;
+  background-color: var(--accent-color);
+  border-radius: 2px;
 }
 
 .results .correct-answer .user-answer {
   border-left: 4px solid var(--success-color);
-  background: linear-gradient(90deg, rgba(74, 222, 128, 0.1), transparent);
+  background: linear-gradient(90deg, rgba(74, 222, 128, 0.1), rgba(74, 222, 128, 0.02));
 }
 
 .results .incorrect-answer .user-answer {
   border-left: 4px solid var(--error-color);
-  background: linear-gradient(90deg, rgba(248, 113, 113, 0.1), transparent);
+  background: linear-gradient(90deg, rgba(248, 113, 113, 0.1), rgba(248, 113, 113, 0.02));
 }
 
 .results .correct-solution {
   border-left: 4px solid var(--success-color);
-  background: linear-gradient(90deg, rgba(74, 222, 128, 0.1), transparent);
+  background: linear-gradient(90deg, rgba(74, 222, 128, 0.1), rgba(74, 222, 128, 0.02));
 }
 
 /* Answer text styling for better readability */
@@ -863,6 +878,8 @@
   color: var(--text-color);
   font-weight: 500;
   padding: 5px 0;
+  line-height: 1.5;
+  letter-spacing: 0.2px;
 }
 
 /* Button group for results page */
@@ -877,6 +894,27 @@
 .button-group .button {
   min-width: 180px;
   text-align: center;
+}
+
+/* Toggle details button styling */
+.toggle-details {
+  position: relative;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  text-align: center;
+  transition: var(--transition);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  margin: 15px 0;
+  font-weight: 500;
+}
+
+.toggle-details:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--hover-shadow);
+}
+
+.toggle-details:active {
+  transform: translateY(1px);
 }
 
 @media (max-width: 768px) {

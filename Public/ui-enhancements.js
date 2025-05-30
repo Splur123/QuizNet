@@ -115,20 +115,24 @@ document.addEventListener('DOMContentLoaded', function() {
   if (resultsPage) {
     // Add click event to expand/collapse answer details
     const questionItems = document.querySelectorAll('.question-item');
-    
-    questionItems.forEach(item => {
+      questionItems.forEach(item => {
       // Create a toggle button outside of the answer-details
       const toggleButton = document.createElement('div');
       toggleButton.className = 'toggle-details';
       toggleButton.innerHTML = 'Show Details ▼';
-      toggleButton.style.cursor = 'pointer';
-      toggleButton.style.padding = '8px';
-      toggleButton.style.marginTop = '10px';
+      toggleButton.style.cursor = 'pointer';      toggleButton.style.padding = '8px 16px';
+      toggleButton.style.marginTop = '15px';
+      toggleButton.style.marginBottom = '15px';
       toggleButton.style.display = 'inline-block';
       toggleButton.style.color = 'var(--accent-color)';
       toggleButton.style.fontWeight = 'bold';
+      toggleButton.style.borderRadius = 'var(--border-radius)';
+      toggleButton.style.transition = 'var(--transition)';
       
-      // Insert the toggle button after the question text
+      // Apply initial background based on light/dark mode
+      toggleButton.style.backgroundColor = document.body.classList.contains('light-mode') ? 
+        'rgba(255, 140, 0, 0.1)' : 'var(--hover-bg-light)';
+        // Insert the toggle button after the question text
       const questionText = item.querySelector('.question-text');
       if (questionText) {
         questionText.parentNode.insertBefore(toggleButton, questionText.nextSibling);
@@ -144,20 +148,23 @@ document.addEventListener('DOMContentLoaded', function() {
         answerDetails.style.transition = 'max-height 0.3s ease, opacity 0.3s ease';
         
         // Add click event to toggle button
-        toggleButton.addEventListener('click', () => {
-          const isExpanded = toggleButton.getAttribute('data-expanded') === 'true';
+        toggleButton.addEventListener('click', () => {          const isExpanded = toggleButton.getAttribute('data-expanded') === 'true';
           
           if (isExpanded) {
             // Collapse
             answerDetails.style.maxHeight = '0';
             answerDetails.style.opacity = '0';
             toggleButton.innerHTML = 'Show Details ▼';
+            toggleButton.style.backgroundColor = document.body.classList.contains('light-mode') ? 
+              'rgba(255, 140, 0, 0.1)' : 'var(--hover-bg-light)';
             toggleButton.setAttribute('data-expanded', 'false');
           } else {
             // Expand
             answerDetails.style.maxHeight = answerDetails.scrollHeight + 30 + 'px';
             answerDetails.style.opacity = '1';
             toggleButton.innerHTML = 'Hide Details ▲';
+            toggleButton.style.backgroundColor = document.body.classList.contains('light-mode') ? 
+              'rgba(255, 140, 0, 0.2)' : 'var(--hover-bg-medium)';
             toggleButton.setAttribute('data-expanded', 'true');
           }
         });
